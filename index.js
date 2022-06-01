@@ -15,12 +15,18 @@ app.get('/', (req, res) => {
     res.send('Hello World my boy. are you reeeeeeeeeeeeeeeeeeeeady?');
 });
 
-
+// Query Search Params
 app.get('/users', (req, res) => {
-    console.log(req.query.search);
-    res.send(users);
+    const search = req.query.search;
+    if (search) {
+        const searchResult = users.filter(user => user.name.toLowerCase().includes(search));
+        res.send(searchResult);
+    } else {
+        res.send(users);
+    }
 });
 
+// Dynamic API
 app.get('/users/:id', (req, res) => {
     let id = req.params.id;
     let user = users[id];
