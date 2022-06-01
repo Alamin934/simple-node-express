@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
+app.use(cors());
 
 
 const users = [
@@ -11,8 +13,13 @@ const users = [
 ]
 
 
+app.post('/users', (req, res) => {
+    console.log('post hitting');
+    res.send('inside post hitting')
+})
+
 app.get('/', (req, res) => {
-    res.send('Hello World my boy. are you reeeeeeeeeeeeeeeeeeeeady?');
+    res.send(users);
 });
 
 // Query Search Params
