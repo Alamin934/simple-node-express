@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
+app.use(express.json());
 
 
 const users = [
@@ -14,9 +15,13 @@ const users = [
 
 
 app.post('/users', (req, res) => {
-    console.log('post hitting');
-    res.send('inside post hitting')
-})
+    const newUser = req.body;
+    newUser.id = users.length;
+    users.push(newUser);
+    console.log('post hitting', req.body);
+    // res.send('inside post hitting')
+    res.json(newUser);
+});
 
 app.get('/', (req, res) => {
     res.send(users);
